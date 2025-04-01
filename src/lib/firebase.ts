@@ -6,6 +6,11 @@ export interface Task {
   id: string;
   title: string;
   description?: string;
+  location?: string;
+  startTime?: string;
+  endTime?: string;
+  attendees?: string;
+  meetLink?: string;
   completed: boolean;
   date: string; // ISO format date string
   createdAt: string;
@@ -33,6 +38,9 @@ const generateSampleTasks = () => {
           id: `task-${date}-${j}`,
           title: `Task ${j + 1} for ${date}`,
           description: `This is a sample task ${j + 1} for ${date}`,
+          location: Math.random() > 0.5 ? 'Sample Location' : undefined,
+          startTime: Math.random() > 0.5 ? '10:00' : undefined,
+          endTime: Math.random() > 0.5 ? '11:00' : undefined,
           completed: Math.random() > 0.5,
           date,
           createdAt: new Date().toISOString(),
