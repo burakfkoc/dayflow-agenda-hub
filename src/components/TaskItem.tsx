@@ -41,7 +41,7 @@ const TaskItem: React.FC<TaskItemProps> = ({ task, onTaskUpdated, onTaskDeleted 
   };
 
   return (
-    <div className="task-item slide-in">
+    <div className="task-item slide-in group">
       <div className="flex items-center gap-3">
         <Checkbox 
           checked={task.completed} 
