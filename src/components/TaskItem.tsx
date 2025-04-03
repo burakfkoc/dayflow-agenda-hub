@@ -47,16 +47,17 @@ const TaskItem: React.FC<TaskItemProps> = ({ task, onTaskUpdated, onTaskDeleted 
           checked={task.completed} 
           onCheckedChange={handleToggleComplete}
           disabled={isCompleting}
+          className="border-primary text-white"
         />
         <div className="flex-1">
-          <p className={cn("font-medium", task.completed && "line-through text-muted-foreground")}>
+          <p className={cn("font-medium text-body-3", task.completed && "line-through text-muted-foreground")}>
             {task.title}
           </p>
           
           {/* Time Information */}
           {(task.startTime || task.endTime) && (
-            <div className="flex items-center gap-1 text-xs text-muted-foreground mt-1">
-              <Clock className="h-3 w-3" />
+            <div className="flex items-center gap-1 text-xs text-muted-foreground mt-xs">
+              <Clock className="h-3 w-3 text-info" />
               <span>
                 {task.startTime && task.endTime 
                   ? `${task.startTime} - ${task.endTime}`
@@ -68,24 +69,24 @@ const TaskItem: React.FC<TaskItemProps> = ({ task, onTaskUpdated, onTaskDeleted 
           
           {/* Location Information */}
           {task.location && (
-            <div className="flex items-center gap-1 text-xs text-muted-foreground mt-1">
-              <MapPin className="h-3 w-3" />
+            <div className="flex items-center gap-1 text-xs text-muted-foreground mt-xs">
+              <MapPin className="h-3 w-3 text-secondary" />
               <span>{task.location}</span>
             </div>
           )}
           
           {/* Attendees Information */}
           {task.attendees && (
-            <div className="flex items-center gap-1 text-xs text-muted-foreground mt-1">
-              <Users className="h-3 w-3" />
+            <div className="flex items-center gap-1 text-xs text-muted-foreground mt-xs">
+              <Users className="h-3 w-3 text-accent" />
               <span>{task.attendees}</span>
             </div>
           )}
           
           {/* Meeting Link Information */}
           {task.meetLink && (
-            <div className="flex items-center gap-1 text-xs text-muted-foreground mt-1">
-              <Link className="h-3 w-3" />
+            <div className="flex items-center gap-1 text-xs text-muted-foreground mt-xs">
+              <Link className="h-3 w-3 text-info" />
               <a href={task.meetLink} target="_blank" rel="noopener noreferrer" 
                  className="underline hover:text-primary">{task.meetLink}</a>
             </div>
@@ -93,13 +94,13 @@ const TaskItem: React.FC<TaskItemProps> = ({ task, onTaskUpdated, onTaskDeleted 
           
           {/* Description Information */}
           {task.description && (
-            <p className="text-sm text-muted-foreground mt-1">{task.description}</p>
+            <p className="text-body-2 text-muted-foreground mt-xs">{task.description}</p>
           )}
         </div>
       </div>
       <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
         <Button size="icon" variant="ghost" onClick={handleDelete} disabled={isDeleting}>
-          <Trash className="h-4 w-4 text-destructive" />
+          <Trash className="h-4 w-4 text-error" />
         </Button>
       </div>
     </div>
