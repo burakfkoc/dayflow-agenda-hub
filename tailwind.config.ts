@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -18,6 +19,10 @@ export default {
 			}
 		},
 		extend: {
+			// Font family
+			fontFamily: {
+				'manrope': ['Manrope', 'sans-serif'],
+			},
 			// Custom spacing values
 			spacing: {
 				'xs': '4px',
