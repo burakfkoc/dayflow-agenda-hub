@@ -1,6 +1,5 @@
 
 import { createTamagui } from 'tamagui'
-import { createInterFont } from '@tamagui/font-inter'
 import { shorthands } from '@tamagui/shorthands'
 import { themes, tokens } from '@tamagui/theme-base'
 
@@ -48,16 +47,53 @@ const customThemes = {
   }
 }
 
-const interFont = createInterFont()
-
+// Remove createInterFont since it's causing issues
 const appConfig = createTamagui({
   defaultTheme: 'light',
   shouldAddPrefersColorThemes: true,
   themeClassNameOnRoot: true,
   shorthands,
   fonts: {
-    heading: interFont,
-    body: interFont,
+    // Use default fonts instead
+    heading: {
+      family: 'System',
+      size: {
+        1: 13,
+        2: 15,
+        3: 18,
+        4: 22,
+        5: 26,
+        6: 32,
+      },
+      lineHeight: {
+        1: 17,
+        2: 20,
+        3: 24,
+        4: 28,
+        5: 33,
+        6: 40,
+      },
+      weight: {
+        4: '300',
+        6: '600',
+      },
+    },
+    body: {
+      family: 'System',
+      size: {
+        1: 13,
+        2: 15,
+        3: 18,
+      },
+      lineHeight: {
+        1: 17,
+        2: 20,
+        3: 24,
+      },
+      weight: {
+        4: '400',
+      },
+    },
   },
   themes: customThemes,
   tokens,

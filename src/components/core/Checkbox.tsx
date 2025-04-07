@@ -9,6 +9,7 @@ export interface CheckboxProps {
   label?: string
   disabled?: boolean
   className?: string
+  [key: string]: any // For other Tamagui checkbox props
 }
 
 export const Checkbox = ({
