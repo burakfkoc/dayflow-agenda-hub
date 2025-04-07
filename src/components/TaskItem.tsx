@@ -2,9 +2,9 @@
 import React, { useState } from 'react';
 import { Check, Trash, Edit, Clock, MapPin, Users, Link } from 'lucide-react';
 import { Task, tasksAPI } from '@/lib/firebase';
-import { Button } from "@/components/core/Button";
-import { Checkbox } from "@/components/core/Checkbox";
-import { YStack, XStack, Text, View } from 'tamagui';
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { cn } from '@/lib/utils';
 
 interface TaskItemProps {
   task: Task;
@@ -41,92 +41,69 @@ const TaskItem: React.FC<TaskItemProps> = ({ task, onTaskUpdated, onTaskDeleted 
   };
 
   return (
-    <View 
-      className="task-item slide-in group"
-      borderBottomWidth={1}
-      borderBottomColor="$border"
-      padding="$3"
-      marginBottom="$1"
-      borderRadius={8}
-      hoverStyle={{ backgroundColor: 'rgba(103, 133, 152, 0.1)' }}
-    >
-      <XStack alignItems="center" space="$3" flex={1}>
+    <div className="task-item slide-in group">
+      <div className="flex items-center gap-3 flex-1">
         <Checkbox 
           checked={task.completed} 
           onCheckedChange={handleToggleComplete}
           disabled={isCompleting}
+          className="border-primary text-white"
         />
-        <YStack flex={1}>
-          <Text 
-            fontSize={16}
-            fontWeight="500"
-            textDecorationLine={task.completed ? 'line-through' : 'none'}
-            opacity={task.completed ? 0.6 : 1}
-          >
+        <div className="flex-1">
+          <p className={cn("font-medium text-body-3", task.completed && "line-through text-muted-foreground")}>
             {task.title}
-          </Text>
+          </p>
           
           {/* Time Information */}
           {(task.startTime || task.endTime) && (
-            <XStack alignItems="center" space="$1" marginTop="$1" opacity={0.7}>
-              <Clock size={12} color="#2B3E4F" />
-              <Text fontSize={12}>
+            <div className="flex items-center gap-1 text-xs text-muted-foreground mt-xs">
+              <Clock className="h-3 w-3 text-info" />
+              <span>
                 {task.startTime && task.endTime 
                   ? `${task.startTime} - ${task.endTime}`
                   : task.startTime || task.endTime
                 }
-              </Text>
-            </XStack>
+              </span>
+            </div>
           )}
           
           {/* Location Information */}
           {task.location && (
-            <XStack alignItems="center" space="$1" marginTop="$1" opacity={0.7}>
-              <MapPin size={12} color="#FEA721" />
-              <Text fontSize={12}>{task.location}</Text>
-            </XStack>
+            <div className="flex items-center gap-1 text-xs text-muted-foreground mt-xs">
+              <MapPin className="h-3 w-3 text-secondary" />
+              <span>{task.location}</span>
+            </div>
           )}
           
           {/* Attendees Information */}
           {task.attendees && (
-            <XStack alignItems="center" space="$1" marginTop="$1" opacity={0.7}>
-              <Users size={12} color="#678598" />
-              <Text fontSize={12}>{task.attendees}</Text>
-            </XStack>
+            <div className="flex items-center gap-1 text-xs text-muted-foreground mt-xs">
+              <Users className="h-3 w-3 text-accent" />
+              <span>{task.attendees}</span>
+            </div>
           )}
           
           {/* Meeting Link Information */}
           {task.meetLink && (
-            <XStack alignItems="center" space="$1" marginTop="$1" opacity={0.7}>
-              <Link size={12} color="#2B3E4F" />
-              <Text 
-                fontSize={12} 
-                textDecorationLine="underline"
-                hoverStyle={{ color: '#E04A0B' }}
-                onPress={() => window.open(task.meetLink, '_blank')}
-              >
-                {task.meetLink}
-              </Text>
-            </XStack>
+            <div className="flex items-center gap-1 text-xs text-muted-foreground mt-xs">
+              <Link className="h-3 w-3 text-info" />
+              <a href={task.meetLink} target="_blank" rel="noopener noreferrer" 
+                 className="underline hover:text-primary">{task.meetLink}</a>
+            </div>
           )}
           
           {/* Description Information */}
           {task.description && (
-            <Text fontSize={14} opacity={0.7} marginTop="$1">{task.description}</Text>
+            <p className="text-body-2 text-muted-foreground mt-xs">{task.description}</p>
           )}
-        </YStack>
-      </XStack>
-      <XStack space="$2" opacity={0} className="group-hover:opacity-100" transition="opacity 0.2s">
-        <Button 
-          size="sm" 
-          variant="ghost" 
-          onPress={handleDelete} 
-          disabled={isDeleting}
-        >
-          <Trash size={16} color="#F44336" />
+        </div>
+      </div>
+      <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+        <Button size="icon" variant="ghost" onClick={handleDelete} disabled={isDeleting}>
+          <Trash className="h-4 w-4 text-error" />
         </Button>
-      </XStack>
-    </View>
+      </div>
+    </div>
   );
 };
 
